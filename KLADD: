@@ -1,0 +1,13 @@
+KLADD:
+
+Skriv program för att matcha män med kvinnor så att bästa genomsnittsval völjs och att så stort antal stabila giftemål erhålls.
+
+
+STDIN ska användas från konsollen, och STDOUT ska användas för utmatning av en sträng i konsolen, för att kunna se vad resultatet blir.
+
+
+What about documentation? I don’t much care. I’d much 
+rather have your code be as short and sweet as possible, 
+instead of full of comments. Especially, don’t waste time 
+explaining the algorithm. My largest solution doesn’t use much 
+more than 100 lines of code, and neither should yours.
