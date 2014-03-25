@@ -5,7 +5,7 @@ public class Man{
 	Stack<Integer> wPref;
 	int id;
 
-	public Man(int id, Stack wPref){
+	public Man(int id, Stack<Integer> wPref){
 		this.id=id;
 		this.wPref=wPref;
 	}
