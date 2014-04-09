@@ -50,7 +50,9 @@ public class CharTest{
 		// System.out.println(ch==ch2);
 
 		String test1 = "test1";
-		System.out.println(test1.substring(1));
+		char[] ch = test1.toCharArray();
+		Arrays.sort(ch);
+		System.out.println(String.valueOf(ch));
 
 	}
 }
