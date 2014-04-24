@@ -6,14 +6,14 @@ public class TreeBuilder{
 	ArrayList<String> testInWords;
 	HashSet<String> takenWords;
 	LinkedList<LinkedList<String>> layerList;
-	HashMap<String, ArrayList<String>> realWords;
+	HashMap<String, LinkedList<String>> realWords;
 
 	public TreeBuilder(String dataIn, String testIn){
 		sortedTree = new TreeSet<String>();
 		testInWords = new ArrayList<String>();
 		takenWords = new HashSet<String>();
 		layerList = new LinkedList<LinkedList<String>>();	
-		realWords = new HashMap<String, ArrayList<String>>();
+		realWords = new HashMap<String, LinkedList<String>>();
 		try{
 			sortData(dataIn, testIn);
 		} catch(IOException e){
@@ -30,12 +30,12 @@ public class TreeBuilder{
 			String sortedWord = alfabeticOrder(line);
 			sortedTree.add(sortedWord);
 			if(addedWord.contains(sortedWord)){	//the letters already exists in realWords
-				ArrayList<String> newWord = realWords.get(sortedWord);
+				LinkedList<String> newWord = realWords.get(sortedWord);
 				newWord.add(line);
 				realWords.put(sortedWord, newWord);
 			} else{	//the letters doesnt exist
 				addedWord.add(sortedWord);
-				ArrayList<String> newWord = new ArrayList<String>();
+				LinkedList<String> newWord = new LinkedList<String>();
 				newWord.add(line);
 				realWords.put(sortedWord, newWord);
 			}
@@ -59,12 +59,9 @@ public class TreeBuilder{
 		LinkedList<String> layerWords = new LinkedList<String>();
 		for(String str: sortedTree){
 			if(match(sortedWord, str) && !takenWords.contains(str)){
-				ArrayList<String> newWords = realWords.get(str);
+				LinkedList<String> newWords = realWords.get(str);
 				takenWords.add(str);
-				for(String s: newWords){
-					// System.out.println("From word: " + word + " to word: " + s);
-					layerWords.add(s);
-				}
+				layerWords.addAll(newWords);
 			}
 		}
 		return layerWords;
@@ -76,14 +73,11 @@ public class TreeBuilder{
 		int noMatch = 0;
 		int place1 = 0;
 		int place2 = 0;
-		// while(noMatch<2 && place1<ch1.length && place2<ch2.length){			
-		while(place1<ch1.length && place2<ch2.length){			
+		while(noMatch<2 && place1<ch1.length && place2<ch2.length){			
 			if(ch1[place1] == ch2[place2]){
 				place1++;
 				place2++;
 			} else if(ch1[place1] < ch2[place2]){
-				place1++;
-				noMatch++;
 				return false;
 			}else{
 				place2++;
@@ -115,10 +109,8 @@ public class TreeBuilder{
 		for(String str: layerList.getLast()){
 			LinkedList<String> potWords = new LinkedList<String>();
 			potWords = findMatchingWords(str);
-			//fungerar det att göra nextLayer.addAll(potWords);
-			for(String s: potWords){
-				nextLayer.add(s);
-			}
+			nextLayer.addAll(potWords);
+			
 		}
 		return nextLayer;
 	}
