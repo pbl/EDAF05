@@ -15,10 +15,6 @@ public class Naive{
 				if(dist < shortestDist){
 					shortestDist = dist;
 					xDist = Math.abs(points.get(i).getX() - points.get(k).getX());
-					System.out.println("from naive");
-					System.out.println("nr 1: " + points.get(i).getY());
-					System.out.println("nr 2: " + points.get(k).getY());
-					System.out.println();
 					yDist = Math.abs(points.get(i).getY() - points.get(k).getY());
 				}
 			}

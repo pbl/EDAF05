@@ -21,5 +21,4 @@ public class Point{
 	public String print(){
 		return String.valueOf(x) + " " + String.valueOf(y);
 	}
-
 }
