@@ -1,38 +1,29 @@
 import java.util.*;
-import java.awt.*;
 
 public class Naive{
-	private ArrayList<Point> points;
 
 	public Naive(){
-		points = new ArrayList<Point>();
-		Point one = new Point(0, 0);
-		Point two = new Point(2, 3);
-		Point three = new Point(-20, -25);
-		Point four = new Point(30, 24);
-		points.add(one);
-		points.add(two);
-		points.add(three);
-		points.add(four);
 	}
 
-	public String findClosestPoints(){
+	public String findClosestPoints(ArrayList<Point> points){
 		double shortestDist = Double.MAX_VALUE;
 		double xDist = 0;
 		double yDist = 0;
-		String str = "";
 		for(int i=0; i<points.size(); i++){
 			for(int k = i+1; k<points.size(); k++){
 				double dist = getDistance(points.get(i), points.get(k));
 				if(dist < shortestDist){
 					shortestDist = dist;
 					xDist = Math.abs(points.get(i).getX() - points.get(k).getX());
+					System.out.println("from naive");
+					System.out.println("nr 1: " + points.get(i).getY());
+					System.out.println("nr 2: " + points.get(k).getY());
+					System.out.println();
 					yDist = Math.abs(points.get(i).getY() - points.get(k).getY());
 				}
 			}
 		}
-		str = str.concat(String.valueOf(xDist) + " " + String.valueOf(yDist));
-		return str;
+		return String.valueOf(xDist) + " " + String.valueOf(yDist);
 	}
 
 	private double getDistance(Point p1, Point p2){
@@ -46,12 +37,5 @@ public class Naive{
 
 		double dist = Math.sqrt(xDist*xDist+yDist*yDist);
 		return dist;
-	}
-
-	public static void main(String[] args){
-		Naive naive = new Naive();
-		String points = naive.findClosestPoints();
-		System.out.println(points);
-
 	}
 }

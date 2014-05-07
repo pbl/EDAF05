@@ -9,4 +9,16 @@ public class Point{
 		this.x=x;
 		this.y=y;
 	}
+
+	public double getX(){
+		return x;
+	}
+
+	public double getY(){
+		return y;	
+	}
+
+	public String print(){
+		return String.valueOf(x) + " " + String.valueOf(y);
+	}
 }

@@ -26,44 +26,25 @@ public class Parser{
 		thePoints = new ArrayList<Point>();
 	}
 
-	public void parseInput(String file){
+	public ArrayList<Point> parseInput(String file){
 		BufferedReader buf = null;
 		try{
-		 buf = new BufferedReader(new FileReader(file)); //behövs "this"?
-		
-			String line2 = buf.readLine();			
-			while(line2!=null){
-
-				//if(line2.startsWith(" 1 "){
-
-				String[] wordLine = line2.split(" ");
-				
-				double xCoor = Double.parseDouble(wordLine[1]);
-				double yCoor = Double.parseDouble(wordLine[2]);
-				
-				Point pTemp = new Point(xCoor, yCoor);
-				
-				thePoints.add(pTemp);
-				
-				line2 = buf.readLine();
-
-				//}else{
-				//	line2 = scan.readLine();
-
-				//}
-
+			buf = new BufferedReader(new FileReader(file)); 
+			String line = buf.readLine();			
+			while(line!=null){
+				String[] wordLine = line.split(" ");
+				if(wordLine.length > 1){
+					double xCoor = Double.parseDouble(wordLine[1]);
+					double yCoor = Double.parseDouble(wordLine[2]);
+					
+					Point pTemp = new Point(xCoor, yCoor);
+					thePoints.add(pTemp);
+				}
+				line = buf.readLine();
 			}
-
 		}catch (IOException e){
 			System.err.println("File not found: " + e.getMessage());
 		}
-			
+		return thePoints;
 	}
-
-	
-
-public static void main(String[] args){
-	Parser ps = new Parser();
-	ps.parseInput(args[0]);
-}
 }
