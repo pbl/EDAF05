@@ -4,8 +4,8 @@ public class Main{
 	public static void main(String[] args){
 		Parser parse = new Parser();
 		ArrayList<Point> points = parse.parseInput(args[0]);
-		Naive naive = new Naive();
-		String str = naive.findClosestPoints(points);
+		ClosestPoints closestPoints = new ClosestPoints();
+		String str = closestPoints.findClosestPoints(points);
 		System.out.println(str);
 	}
 }

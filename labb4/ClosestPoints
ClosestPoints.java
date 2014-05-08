@@ -1,8 +1,8 @@
 import java.util.*;
 
-public class Naive{
+public class ClosestPoints{
 
-	public Naive(){
+	public ClosestPoints(){
 	}
 
 	public String findClosestPoints(ArrayList<Point> points){
