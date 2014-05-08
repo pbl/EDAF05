@@ -21,4 +21,9 @@ public class Point{
 	public String print(){
 		return String.valueOf(x) + " " + String.valueOf(y);
 	}
+
+	// @Override
+	// public int compareTo(Point point){
+	// 	return x - point.x;
+	// }
 }

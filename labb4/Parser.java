@@ -21,13 +21,13 @@ import java.io.*;
 
 
 public class Parser{
-	ArrayList<Point> thePoints;
+	
 	public Parser(){
-		thePoints = new ArrayList<Point>();
 	}
 
-	public ArrayList<Point> parseInput(String file){
+	public Point[] parseInput(String file){
 		BufferedReader buf = null;
+		ArrayList<Point> thePoints = new ArrayList<Point>();
 		try{
 			buf = new BufferedReader(new FileReader(file)); 
 			String line = buf.readLine();			
@@ -45,6 +45,13 @@ public class Parser{
 		}catch (IOException e){
 			System.err.println("File not found: " + e.getMessage());
 		}
-		return thePoints;
+		// System.out.println("before point array");
+		Point[] pointArray = new Point[thePoints.size()];	
+		// System.out.println("before for-loop");
+		for(int i=0; i<thePoints.size(); i++){
+			pointArray[i] = thePoints.get(i);
+		}
+		// System.out.println("after for-loop");
+		return pointArray;
 	}
 }
