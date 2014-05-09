@@ -1,0 +1,3 @@
+1. Hur skriver man ett bash program som kompilerar alla ens klasser automatiskt?
+2. Hur skriver en makefile som testar alla filer? (Det hade varit bäst om alla testfiler kunde ligga seperat..)
+3. 

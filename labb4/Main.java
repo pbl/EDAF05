@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.*;
 	
 public class Main{
 	private ClosestPoints closestPoints;
@@ -8,8 +9,8 @@ public class Main{
 	}
 
 	public Pair closestPair(Point[] points){
-		Comp c = new Comp();
-		Arrays.sort(points, c);
+		CompX cX = new CompX();
+		Arrays.sort(points, cX);
 		Pair pair = closestPairRec(points); 
 		return pair;
 	}
@@ -18,56 +19,110 @@ public class Main{
 		if(points.length <= 3){
 			return closestPoints.findClosestPoints(points);
 		}
-		int length = points.length / 2;
-		Point[] leftHalf = new Point[lenght];
-		Point[] rightHalf = new Point[points.length - length];
-		leftHalf = Arrays.copyOfRange(points, 0, length);
-		rightHalf = Arrays.copyOfRange(points, length, points.length);
+		Point[] leftHalf = splitLeft(points);
+		Point[] rightHalf = splitRight(points);
  		Pair pLeft = closestPairRec(leftHalf);
  		Pair pRight = closestPairRec(rightHalf);
 
- 		double dist = bestPair(pLeft, pRight);
+ 		Pair sidePair = bestPair(pLeft, pRight);
+ 		double xL = leftHalf[leftHalf.length-1].getX();
+ 		double xR = rightHalf[0].getX();
+ 		double x = (xL + xR) / 2;
 
+ 		double dist = sidePair.dist();
+ 		double xStart = x - dist;
+ 		double xEnd = x + dist;
+
+ 		Point[] relevantPoints = pointsInMiddle(xStart, xEnd, leftHalf, rightHalf);
+ 		Arrays.sort(relevantPoints, new CompY());
+ 		Pair mergePair = closestPoints.searchBoxes(relevantPoints);
+ 		// Pair mergePair = closestPoints.findClosestPoints(relevantPoints);
+ 		Pair bestPair = sidePair.dist() < mergePair.dist() ? sidePair : mergePair;
+ 		// System.out.println("BestPair so far is: " + bestPair.print());
+ 		return bestPair;
 	}
 
-	private double bestPair(Pair l, Pair r){
-		return l.dist > r.dist ? r.dist() : l.dist();
+
+
+
+
+	private Point[] pointsInMiddle(double start, double end, Point[] leftHalf, Point[] rightHalf){
+		ArrayList<Point> middlePoints = new ArrayList<Point>();
+		int i = leftHalf.length-1;
+		// System.out.println(leftHalf.length);
+		boolean check = true;
+		while(check && i>0){
+			if(leftHalf[i].getX()<start){
+				check = false;
+			} else{
+				middlePoints.add(leftHalf[i]);
+			}
+			i--;
+		}
+		check = true;
+		i = 0;
+		while(check && i < rightHalf.length){
+			if(rightHalf[i].getX()>end){
+				check = false;
+			} else{
+				middlePoints.add(rightHalf[i]);	
+			}
+			i++;
+		}
+		Point[] points = new Point[middlePoints.size()];
+		for(int k=0; k<middlePoints.size(); k++){
+			points[k] = middlePoints.get(k);
+		}
+		return middlePoints.size() < 2 ? fakePoints() : points;
+	}
+
+	private Point[] fakePoints(){
+		Point[] points = new Point[2];
+		points[0] = new Point(0, 0); 
+		points[1] = new Point(100000000, 1000000000);
+		// System.out.println("fakePoints says hello");
+		return points;
+	}
+
+	private Pair bestPair(Pair left, Pair right){
+		return left.dist() < right.dist() ? left : right;
 	}
 
 	private Point[] splitLeft(Point[] points){
 		int length = points.length / 2;
-		Point[] leftHalf = new Point[lenght];
+		Point[] leftHalf = new Point[length];
 		return Arrays.copyOfRange(points, 0, length);
 	}
 
-	private Point[] splitLeft(Point[] points){
+	private Point[] splitRight(Point[] points){
 		int length = points.length / 2;
 		Point[] rightHalf = new Point[points.length - length];
 		return Arrays.copyOfRange(points, length, points.length);
 	}
 
-		// om mindre än tre gör något
-
-		// annars dela upp i två halvor, 4 bitar
-		// pair = rec på ena halvan
-		// pair = rec på andra halvan
-
-		// int dist = minsta ditansen av pair1 och pair2
-
-
-	// private Pair merge(leftHalf, rightHalf){
-
-	// }
-
-
- 
-
 	public static void main(String[] args){
 		Main main = new Main();
-		Parser parse = new Parser();
-		Point[] points = parse.parseInput(args[0]);
-		Pair pair = main.closestPair(points);
-		System.out.println(pair.print());
+		CoolParser cP = new CoolParser();
+
+		ThorParser tp = new ThorParser();
+		HashMap<String, Double> thorRes = tp.parse("closest-pair.out");
+		int count = 0;
+
+		for (Map.Entry<String, Double> entry : thorRes.entrySet()) {
+		    String key = entry.getKey();
+		    Double value = entry.getValue();
+		    // System.out.println("proccessing file: "+ key);
+		    
+			Point[] points = cP.parseInput("./testfiler/" + key);
+			Pair closestPair = main.closestPair(points);
+			Double diff = Math.abs(value - closestPair.getDistance());
+			if(diff > 0.0001){
+				System.out.println("The diff in file: " + key + " is: " + diff);
+			}
+			// System.out.println("The file name is: " + key + " the value is: "+value);
+		    
+		}
+
 
 
 		// for(int i=0; i<points.length; i++){

@@ -13,9 +13,14 @@ public class Pair{
 	}
 
 	public String print(){
+		return String.valueOf(getDistance());
+	}
+
+	public Double getDistance(){
 		double xDist = Math.abs(p1.getX() - p2.getX());
 		double yDist = Math.abs(p1.getY() - p2.getY());
-		return String.valueOf(xDist) + " " + String.valueOf(yDist);
+		double dist = Math.sqrt(xDist*xDist + yDist*yDist);
+		return dist;
 	}
 
 }
