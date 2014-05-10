@@ -9,10 +9,8 @@ public class Main{
 	}
 
 	public Pair closestPair(Point[] points){
-		CompX cX = new CompX();
-		Arrays.sort(points, cX);
-		Pair pair = closestPairRec(points); 
-		return pair;
+		Arrays.sort(points, new CompX());
+		return closestPairRec(points);
 	}
 
 	private Pair closestPairRec(Point[] points){
@@ -33,54 +31,41 @@ public class Main{
  		double xStart = x - dist;
  		double xEnd = x + dist;
 
- 		Point[] relevantPoints = pointsInMiddle(xStart, xEnd, leftHalf, rightHalf);
+ 		// Point[] relevantPoints = pointsInMiddle(xStart, xEnd, leftHalf, rightHalf); //fix
+ 		Point[] relevantPoints = relPoints(xStart, xEnd, points);
  		Arrays.sort(relevantPoints, new CompY());
- 		Pair mergePair = closestPoints.searchBoxes(relevantPoints);
+ 		// Pair mergePair = closestPoints.searchBoxes(relevantPoints);
+ 		Pair mergePair = closestPoints.findClosestPoints(relevantPoints);
+ 		
  		// Pair mergePair = closestPoints.findClosestPoints(relevantPoints);
  		Pair bestPair = sidePair.dist() < mergePair.dist() ? sidePair : mergePair;
  		// System.out.println("BestPair so far is: " + bestPair.print());
  		return bestPair;
 	}
 
-
-
-
-
-	private Point[] pointsInMiddle(double start, double end, Point[] leftHalf, Point[] rightHalf){
-		ArrayList<Point> middlePoints = new ArrayList<Point>();
-		int i = leftHalf.length-1;
-		// System.out.println(leftHalf.length);
-		boolean check = true;
-		while(check && i>0){
-			if(leftHalf[i].getX()<start){
-				check = false;
-			} else{
-				middlePoints.add(leftHalf[i]);
+	private Point[] relPoints(double start, double end, Point[] points){
+		ArrayList<Point> relevantPoints = new ArrayList<Point>();
+		for(int i=0; i<points.length; i++){
+			if(inRange(start, end, points[i].getX())){
+				relevantPoints.add(points[i]);
 			}
-			i--;
 		}
-		check = true;
-		i = 0;
-		while(check && i < rightHalf.length){
-			if(rightHalf[i].getX()>end){
-				check = false;
-			} else{
-				middlePoints.add(rightHalf[i]);	
-			}
-			i++;
+		Point[] rP = new Point[relevantPoints.size()];
+		for(int i=0; i<relevantPoints.size(); i++){
+			rP[i] = relevantPoints.get(i);
 		}
-		Point[] points = new Point[middlePoints.size()];
-		for(int k=0; k<middlePoints.size(); k++){
-			points[k] = middlePoints.get(k);
-		}
-		return middlePoints.size() < 2 ? fakePoints() : points;
+		return relevantPoints.size() < 2 ? fakePoints() : rP;
+	}
+
+	private boolean inRange(double start, double end, double pos){
+		return (pos > start && pos < end) ? true : false;
 	}
 
 	private Point[] fakePoints(){
 		Point[] points = new Point[2];
+		double bigNbr = Double.parseDouble("1.14400e+100");
 		points[0] = new Point(0, 0); 
-		points[1] = new Point(100000000, 1000000000);
-		// System.out.println("fakePoints says hello");
+		points[1] = new Point(bigNbr, bigNbr);
 		return points;
 	}
 
@@ -107,28 +92,19 @@ public class Main{
 		ThorParser tp = new ThorParser();
 		HashMap<String, Double> thorRes = tp.parse("closest-pair.out");
 		int count = 0;
-
 		for (Map.Entry<String, Double> entry : thorRes.entrySet()) {
 		    String key = entry.getKey();
 		    Double value = entry.getValue();
-		    // System.out.println("proccessing file: "+ key);
-		    
 			Point[] points = cP.parseInput("./testfiler/" + key);
 			Pair closestPair = main.closestPair(points);
-			Double diff = Math.abs(value - closestPair.getDistance());
-			if(diff > 0.0001){
+			Double diff = Math.abs(value - closestPair.dist());
+			if(diff > 0.000000001){
 				System.out.println("The diff in file: " + key + " is: " + diff);
+				count++;
 			}
-			// System.out.println("The file name is: " + key + " the value is: "+value);
-		    
 		}
-
-
-
-		// for(int i=0; i<points.length; i++){
-		// 	System.out.println(points[i].getX());
-		// }		
-		// String str = closestPoints.findClosestPoints(points);
-		// System.out.println(str);
+		if(count == 0){
+			System.out.println("There was no diff greater than 10^-9 for all files");
+		}
 	}
 }

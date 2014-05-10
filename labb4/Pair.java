@@ -8,20 +8,7 @@ public class Pair{
 	}
 
 	public double dist(){
-		ClosestPoints cp = new ClosestPoints();
-		return cp.getDistance(p1, p2);
+		return (new ClosestPoints()).getDistance(p1, p2);
 	}
-
-	public String print(){
-		return String.valueOf(getDistance());
-	}
-
-	public Double getDistance(){
-		double xDist = Math.abs(p1.getX() - p2.getX());
-		double yDist = Math.abs(p1.getY() - p2.getY());
-		double dist = Math.sqrt(xDist*xDist + yDist*yDist);
-		return dist;
-	}
-
 }
 
