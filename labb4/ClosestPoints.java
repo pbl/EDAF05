@@ -28,29 +28,4 @@ public class ClosestPoints{
 		return Math.sqrt(xDist*xDist+yDist*yDist);
 	}
 
-
-	// private int findTo(int pos, int length){
-	// 	if(pos + NBR_OF_BOXES > length){
-	// 		return length;
-	// 	} else{
-	// 		return pos + NBR_OF_BOXES;
-	// 	}
-	// }
-
-
-	// public Pair searchBoxes(Point[] points){
-	// 	double shortestDist = Double.MAX_VALUE; 
-	// 	int p1 = -1;
-	// 	int p2 = -1;
-	// 	for(int i=0; i<points.length; i++){
-	// 		int to = findTo(i, points.length);
-	// 		for(int from=i+1; from<to; from++){
-	// 			if(getDistance(points[from], points[i]) < shortestDist){
-	// 				p1 = from;
-	// 				p2 = i;
-	// 			}
-	// 		}
-	// 	}
-	// 	return new Pair(points[p1], points[p2]);
-	// }
 }

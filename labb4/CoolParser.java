@@ -10,9 +10,10 @@ public class CoolParser{
 	public Point[] parseInput(String file){
 		BufferedReader buf = null;
 		points = new ArrayList<Point>();
+
 		try{
 			buf = new BufferedReader(new FileReader(file)); 
-			skip
+
 			String line = buf.readLine();
 			while(!line.startsWith("NODE_COORD_SECTION")){
 				line = buf.readLine();
@@ -22,6 +23,7 @@ public class CoolParser{
 			String[] wordLine = line.split(" ");
 			while(wordLine.length > 2){
 				addPoint(wordLine);
+				
 				line = buf.readLine();
 				wordLine = line.split(" ");
 			}

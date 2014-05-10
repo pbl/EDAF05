@@ -19,20 +19,13 @@ public class Main{
 		}
 		Point[] leftHalf = splitLeft(points);
 		Point[] rightHalf = splitRight(points);
- 		Pair pLeft = closestPairRec(leftHalf);
- 		Pair pRight = closestPairRec(rightHalf);
 
- 		Pair sidePair = bestPair(pLeft, pRight);
- 		double xL = leftHalf[leftHalf.length-1].getX();
- 		double xR = rightHalf[0].getX();
- 		double x = (xL + xR) / 2;
+ 		Pair sidePair = bestPair(closestPairRec(leftHalf), closestPairRec(rightHalf));
+ 		double x = (leftHalf[leftHalf.length-1].getX() + rightHalf[0].getX()) / 2;
 
  		double dist = sidePair.dist();
- 		double xStart = x - dist;
- 		double xEnd = x + dist;
 
- 		// Point[] relevantPoints = pointsInMiddle(xStart, xEnd, leftHalf, rightHalf); //fix
- 		Point[] relevantPoints = relPoints(xStart, xEnd, points);
+ 		Point[] relevantPoints = relPoints(x - dist, x + dist, points);
  		Arrays.sort(relevantPoints, new CompY());
  		// Pair mergePair = closestPoints.searchBoxes(relevantPoints);
  		Pair mergePair = closestPoints.findClosestPoints(relevantPoints);
@@ -87,15 +80,16 @@ public class Main{
 
 	public static void main(String[] args){
 		Main main = new Main();
-		CoolParser cP = new CoolParser();
+		CoolParser coolParse = new CoolParser();
+		ThorParser thorParse = new ThorParser();
 
-		ThorParser tp = new ThorParser();
-		HashMap<String, Double> thorRes = tp.parse("closest-pair.out");
+		HashMap<String, Double> thorRes = thorParse.parse("closest-pair.out");
 		int count = 0;
 		for (Map.Entry<String, Double> entry : thorRes.entrySet()) {
 		    String key = entry.getKey();
 		    Double value = entry.getValue();
-			Point[] points = cP.parseInput("./testfiler/" + key);
+
+			Point[] points = coolParse.parseInput("./testfiler/" + key);
 			Pair closestPair = main.closestPair(points);
 			Double diff = Math.abs(value - closestPair.dist());
 			if(diff > 0.000000001){
