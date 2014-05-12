@@ -12,11 +12,17 @@ public class Test{
 
 		// DataParser parser = new DataParser("myTest.in");
 		// ArrayList<ArrayList<String>> lists = parser.getLists();
-		if(false){
+		int row = 1;
+		int col = 4;
+		int[][] test = new int[row][col];
 
-		} else if(true){
+		// test[0][0] = 2;
 
+		for (int[] rows : test){
+		    for (int value : rows){
+		         System.out.print(value + "\t");
+		    }
+		    System.out.println();
 		}
-
 	}
 }
