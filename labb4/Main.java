@@ -21,19 +21,16 @@ public class Main{
 		Point[] rightHalf = splitRight(points);
 
  		Pair sidePair = bestPair(closestPairRec(leftHalf), closestPairRec(rightHalf));
- 		double x = (leftHalf[leftHalf.length-1].getX() + rightHalf[0].getX()) / 2;
 
+ 		double x = (leftHalf[leftHalf.length-1].getX() + rightHalf[0].getX()) / 2;
  		double dist = sidePair.dist();
 
  		Point[] relevantPoints = relPoints(x - dist, x + dist, points);
  		Arrays.sort(relevantPoints, new CompY());
- 		// Pair mergePair = closestPoints.searchBoxes(relevantPoints);
+
  		Pair mergePair = closestPoints.findClosestPoints(relevantPoints);
  		
- 		// Pair mergePair = closestPoints.findClosestPoints(relevantPoints);
- 		Pair bestPair = sidePair.dist() < mergePair.dist() ? sidePair : mergePair;
- 		// System.out.println("BestPair so far is: " + bestPair.print());
- 		return bestPair;
+ 		return sidePair.dist() < mergePair.dist() ? sidePair : mergePair;
 	}
 
 	private Point[] relPoints(double start, double end, Point[] points){
@@ -83,7 +80,7 @@ public class Main{
 		CoolParser coolParse = new CoolParser();
 		ThorParser thorParse = new ThorParser();
 
-		HashMap<String, Double> thorRes = thorParse.parse("closest-pair.out");
+		HashMap<String, Double> thorRes = thorParse.parse("./testfiler/closest-pair.out");
 		int count = 0;
 		for (Map.Entry<String, Double> entry : thorRes.entrySet()) {
 		    String key = entry.getKey();
