@@ -1,3 +1,3 @@
 #!/bin/bash
 javac *.java
-java Main
+time java Main

@@ -26,6 +26,7 @@ public class DataParser{
 				for(int i=0; i<line.length(); i++){
 					al.add(line.substring(i, i+1));
 				}
+					
 				arr.add(al);
 				line = buf.readLine();
 			}

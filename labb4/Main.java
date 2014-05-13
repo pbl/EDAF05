@@ -26,7 +26,7 @@ public class Main{
  		double dist = sidePair.dist();
 
  		Point[] relevantPoints = relPoints(x - dist, x + dist, points);
- 		Arrays.sort(relevantPoints, new CompY());
+ 		// Arrays.sort(relevantPoints, new CompY());
 
  		Pair mergePair = closestPoints.findClosestPoints(relevantPoints);
  		
