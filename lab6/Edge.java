@@ -4,7 +4,7 @@ public class Edge{
 	int maxCapacity;
 	int keepTrackForward;
 	int keepTrackBackword;
-
+	int test;
 
 	//create an edge with points from city1 to city2 if nothing else is specified
 	public Edge(int city1, int city2, int maxCapacity){
