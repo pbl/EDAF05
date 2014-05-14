@@ -1,6 +1,7 @@
 import java.util.*;
 public class DFS {   
       private static final int NBR_OF_VERTICES = 55;
+      private static final int GOAL = 54;
       private HashMap<Integer, Edge> edges;
       private HashMap<Integer, ArrayList<Integer>> vertices;     
      
@@ -17,13 +18,15 @@ public class DFS {
             this.edges = edges;
             this.vertices = vertices;
             path.add(city);
-            for (int i = 0; i < NBR_OF_VERTICES; i++)
+            for (int i = 0; i < NBR_OF_VERTICES; i++){
                   state[i] = VertexState.White;
+            }
             return runDFS(city, state, path);
       }
-     
+      //this needs to be changed. As it is now path will add every 
+      //vertice that it can go to..
       public LinkedList<Integer> runDFS(int city, VertexState[] state, LinkedList<Integer> path){
-            if(path.getLast() == 54){
+            if(path.getLast() == GOAL){
                   return path;
             } 
             state[city] = VertexState.Gray;

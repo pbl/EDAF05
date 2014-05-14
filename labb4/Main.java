@@ -26,10 +26,19 @@ public class Main{
  		double dist = sidePair.dist();
 
  		Point[] relevantPoints = relPoints(x - dist, x + dist, points);
- 		// Arrays.sort(relevantPoints, new CompY());
 
- 		Pair mergePair = closestPoints.findClosestPoints(relevantPoints);
- 		
+ 		Arrays.sort(relevantPoints, new CompY());
+ 		double minmergedist = dist;
+ 		Point[] blaha = fakePoints();
+ 		Pair mergePair = new Pair(blaha[0], blaha[1]);
+ 		for(int i = 0; i< relevantPoints.length-1; i++){
+ 			for(int j = i+1; j < relevantPoints.length && j < i+10; j++) {
+ 				if((new Pair(relevantPoints[i], relevantPoints[j])).dist() < minmergedist){
+ 					mergePair = new Pair(relevantPoints[i], relevantPoints[j]);
+ 					minmergedist = mergePair.dist();
+ 				}
+ 			}
+ 		}	
  		return sidePair.dist() < mergePair.dist() ? sidePair : mergePair;
 	}
 
