@@ -20,6 +20,10 @@ public class Edge{
 		return city == city1 ? keepTrackForward : keepTrackBackword;
 	}
 
+	public boolean canUseEdge(int city){
+		return city == city1 ? keepTrackForward > 0 : keepTrackBackword > 0;
+	}
+
 	public int getOtherCity(int city){
 		return city == city1 ? city2 : city1;
 	}

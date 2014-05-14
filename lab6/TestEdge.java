@@ -19,12 +19,23 @@ public class TestEdge{
 		System.out.println("Keeptrack backward: " + edge.getKeepTrackBackward() + " should be 20");
 		System.out.println("Bottleneck for 0: " + edge.getBottleNeckValue(0) + " should be 10");
 		System.out.println("Bottleneck for 1: " + edge.getBottleNeckValue(1) + " should be 20");
+		System.out.println("asks if 1 can use edge: " + edge.canUseEdge(1) + " should be true");
 		System.out.println();
 		edge.decrease(10);
 		System.out.println("Keeptrack forward: " + edge.getKeepTrackForward() + " should be 20");
 		System.out.println("Keeptrack backward: " + edge.getKeepTrackBackward() + " should be 10");
 		System.out.println("Bottleneck for 0: " + edge.getBottleNeckValue(0) + " should be 20");
 		System.out.println("Bottleneck for 1: " + edge.getBottleNeckValue(1) + " should be 10");
+		System.out.println("asks if 1 can use edge: " + edge.canUseEdge(1) + " should be true");
+
+		System.out.println();
+
+		edge.decrease(10);
+		System.out.println("Keeptrack forward: " + edge.getKeepTrackForward() + " should be 20");
+		System.out.println("Keeptrack backward: " + edge.getKeepTrackBackward() + " should be 10");
+		System.out.println("Bottleneck for 0: " + edge.getBottleNeckValue(0) + " should be 20");
+		System.out.println("Bottleneck for 1: " + edge.getBottleNeckValue(1) + " should be 10");
+		System.out.println("asks if 1 can use edge: " + edge.canUseEdge(1) + " should be false");
 
 		System.out.println();
 

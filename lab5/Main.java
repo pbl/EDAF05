@@ -1,5 +1,5 @@
 import java.util.*;
-public class Naive{
+public class Main{
 	private static final int DELTA = -4;
 	int[][] costMatrix;
 	private HashMap<String, HashMap<String, Integer>> misMatchCostMap;
@@ -8,7 +8,7 @@ public class Naive{
 	private StringBuffer sb1;
 	private StringBuffer sb2;
 
-	public Naive(){
+	public Main(){
 		misMatchCostMap = (new MisMatchCostParser()).parse();
 	}
 
@@ -113,16 +113,18 @@ public class Naive{
 	// }
 
 	public static void main(String[] args){
-		Naive naive = new Naive();
-		DataParser dataParser = new DataParser("Toy_FASTAs.in");
+		Main main = new Main();
+		// DataParser dataParser = new DataParser("Toy_FASTAs.in");
+		DataParser dataParser = new DataParser("HbB_FASTAs.in");
+		
 		// DataParser dataParser = new DataParser("HbB_FASTAs.in");
 		ArrayList<ArrayList<String>> allStrings = dataParser.getLists();
 
 		for(int i=0; i<allStrings.size()-1; i++){
 			for(int k=i+1; k<allStrings.size(); k++){
-				naive.findAlignment(allStrings.get(i), allStrings.get(k));
-				// naive.print();
-				naive.findPath();
+				main.findAlignment(allStrings.get(i), allStrings.get(k));
+				// main.print();
+				main.findPath();
 			}
 		}
 	}
