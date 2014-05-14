@@ -1,20 +1,26 @@
 public class Edge{  
 	int city1;
 	int city2;
-	int maxCapacity;
+	int capacity;
 	int keepTrackForward;
 	int keepTrackBackword;
-	int test;
+	boolean inf;
+	int flow;
 
 	//create an edge with points from city1 to city2 if nothing else is specified
-	public Edge(int city1, int city2, int maxCapacity){
+	public Edge(int city1, int city2, int capacity){
 		this.city1 = city1;
 		this.city2 = city2;
-		this.maxCapacity = maxCapacity;
-		keepTrackForward = maxCapacity;
-		keepTrackBackword = 0;
+		inf = capacity==-1;
+		this.capacity = capacity;
+		keepTrackForward = capacity;
+		keepTrackBackword = capacity;
+		flow = 0;
 	}
 
+	public boolean isInf(){
+		return inf;
+	}
 
 	public int getBottleNeckValue(int city){
 		return city == city1 ? keepTrackForward : keepTrackBackword;
@@ -28,28 +34,37 @@ public class Edge{
 		return city == city1 ? city2 : city1;
 	}
 
-
-	public void increase(int value){
-		keepTrackForward -= value;
-		keepTrackBackword += value;
+	public int getFlow(){
+		return Math.abs(capacity - keepTrackForward);
 	}
 
-	public void decrease(int value){
-		keepTrackForward += value;
-		keepTrackBackword -= value;
+	public int getCapacity(){
+		return capacity;
 	}
 
-	public int getMaxCapacity(){
-		return maxCapacity;
+	public void increase(int value, int city){
+		//wht happens with flow??
+		if(city == city1){
+			keepTrackForward -= value;
+			keepTrackBackword += value;
+		} else{
+			keepTrackForward += value;
+			keepTrackBackword -= value;
+		}
 	}
 
-	public int getKeepTrackForward(){
-		return keepTrackForward;
-	}
+	// public void decrease(int value){
+	// 	keepTrackForward += value;
+	// 	keepTrackBackword -= value;
+	// }
 
-	public int getKeepTrackBackward(){
-		return keepTrackBackword;
-	}
+	// public int getKeepTrackForward(){
+	// 	return keepTrackForward;
+	// }
+
+	// public int getKeepTrackBackward(){
+	// 	return keepTrackBackword;
+	// }
 
 	// public void getStatus(){
 	// 	System.out.println();
