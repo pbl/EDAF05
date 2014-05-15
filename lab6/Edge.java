@@ -34,9 +34,10 @@ public class Edge{
 		return city == city1 ? city2 : city1;
 	}
 
-	public int getFlow(){
-		return Math.abs(capacity - keepTrackForward);
-	}
+	//is this method really neccesary??
+	// public int getFlow(){
+	// 	return Math.abs(capacity - keepTrackForward);
+	// }
 
 	public int getCapacity(){
 		return capacity;

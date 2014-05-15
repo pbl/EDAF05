@@ -1,3 +1,0 @@
-a vertice class which consists of it's edges (both outgoing and ingoing?)
-
-a edge class with direction, 
