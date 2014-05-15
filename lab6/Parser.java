@@ -1,38 +1,62 @@
-1import java.util.*;
+import java.util.*;
 import java.io.*;
 
 public class Parser{
-ArrayList<Integer> cities;		//De angränsande städerna för en stad
-HashMap<Integer, Edge> stations;	//Map med städer och deras edges
-HashMap<Integer, ArrayList<Integer>> cityNeighbours; //map med städers angränsande städer
-
+Edge[] allEdges;				//Map med städer och deras edges, så att när en edge 
+								//ändras ändras det globalt och inte bara för en specifik stad
+ArrayList<ArrayList<Integer>> edgesForACity;	 //map med specifik stads kopplade edges
+					
+					//skapa en vektor med alla städer stor och sedan att varje stad har 
 	public Parser(){
-		stations = new HashMap<Integer, Edge>();
-		cityNeighbours = new HashMap<Integer, ArrayList<Integer>>();
-		cities = new ArrayList<Integer>();
+		allEdges = new Edge[119]; //skapar vekto med 119 platser för edges
+		edgesForACity = new ArrayList<ArrayList<Integer>>();
+		
+		for(int j = 0; j<55;j++){		//loopar in tomma listor i edgesForAllCity
+			edgesForACity.add(new ArrayList<Integer>());
+		}
 	}
-
-//HashMap<int, Edge>();//som håller på alla städer och deras edges.
-
-	public HashMap<Integer, Edge> parseInput(String file){
+	public Edge[] parseInput(String file){
 		BufferedReader buf = null;
+		int edgeKey = 0;
 		try{
 			buf = new BufferedReader(new FileReader(file)); 
 			for(int i = 0; i<176; i++){ // hoppar över allt skit, sista inläsning dock relevant
 				String line = buf.readLine();	
 					if(i>57){
+						
 						String[] wordLine = line.split(" ");
 						int cityA = Integer.parseInt(wordLine[0]);
 						int cityB =Integer.parseInt(wordLine[1]);
-						int cap = Integer.parseInt(wordLine[2]);
-						Edge e = new Edge(cityA,cityB, cap);
-						stations.put(cityA, e);
-						cityNeighbours.get(cityA).add(cityB);
+						int capacity = Integer.parseInt(wordLine[2]);
+						Edge e = new Edge(cityA,cityB, capacity);
+						
+						allEdges[edgeKey] = e; //sparar undan den unika edgen på unik nyckel
+						//int edgeKey = Arrays.asList(allEdges).indexOf(e);//finner index för den edge:n
+							
+
+						//på platsen a och b vill vi lägga in en array eller uppdaterad array med 
+						//med nytt antal av edges.
+
+						ArrayList<Integer> tempA = edgesForACity.get(cityA);
+						ArrayList<Integer> tempB = edgesForACity.get(cityB);
+						
+						tempA.add(edgeKey);
+						tempB.add(edgeKey);
+
+						edgesForACity.remove(cityA);
+						edgesForACity.add(cityA, tempA);
+
+						edgesForACity.remove(cityB);
+						edgesForACity.add(cityB, tempB);
+						
+						
+						edgeKey++;
+
 
 
 					}		
 			}
-			return stations;
+			return allEdges;
 
 		}catch (IOException e){
 			System.err.println("File not found: " + e.getMessage());
@@ -40,7 +64,7 @@ HashMap<Integer, ArrayList<Integer>> cityNeighbours; //map med städers angräns
 	return null;
 	}
 
-	public HashMap<Integer, ArrayList<Integer>> getNeighbours(){
-		return cityNeighbours;
+	public ArrayList<ArrayList<Integer>> getEdgesForACity(){
+		return edgesForACity;
 	}
 }

@@ -7,16 +7,28 @@ public class TestParser{
 	public static void main (String[] args){
 		
 		Parser p = new Parser();
-		HashMap<Integer, Edge> theMap = p.parseInput(args[0]);
-
-		for(Map.Entry hej : theMap.entrySet()){
-			System.out.println("bög-staden är" + hej);
+		Edge[] theMap = p.parseInput(args[0]);
+		ArrayList<ArrayList<Integer>> temp = p.getEdgesForACity();
+		System.out.println("det finns så här många edges: " + theMap.length);
+		System.out.println("Det finns så här många städer: " + temp.size());
+		
+		int counter = 0;
+		for(ArrayList<Integer> a : temp){
+			counter = counter + a.size();
 		}
-		HashMap<Integer, ArrayList<Integer>> test = p.getNeighbours();
+		System.out.println("så här många edges hittar jag i edges for all cities:" + counter);
 
-		for(Map.Entry snopp : theMap.entrySet()){
-			System.out.println("snopppp " + snopp);
-		}
-	}	
+
+		// HashMap<Integer, ArrayList<Integer>> test = p.getNeighbours();
+
+		// for(Map.Entry snopp : theMap.entrySet()){	//map med alla städer och deras angränsande städer
+		// 	ArrayList<Integer> temp = snopp;
+		// 	for(int i = 0; i<snopp.length; i++){
+		// 		System.out.println("stadens grannar är " + snopp);
+
+		// 	}
+
+		// }
+			}	
 
 }
