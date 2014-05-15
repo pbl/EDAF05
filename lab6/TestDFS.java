@@ -3,6 +3,8 @@ public class TestDFS{
 	public TestDFS(){
 
 	}
+
+
 	//remember to change the order of the cities in edge to test if it matters
 	public static void main(String[] args){
 		int source = 0;
@@ -16,7 +18,7 @@ public class TestDFS{
 		ArrayList<Integer> city5;
 		ArrayList<Integer> city6;
 		DFS dfs = new DFS();
-		LinkedList<Integer> path;
+		LinkedList<Pair> path;
 		System.out.println("First test");
 		// hardcoding the edges1 and cities
 
@@ -38,11 +40,9 @@ public class TestDFS{
 		if(path == null){
 			System.out.println("Should find path. But didn't");
 		} else{
-
-			for(Integer city : path){
-				System.out.println(city);
+			for(Pair pair : path){
+				System.out.println("city: " + pair.getCity());
 			}
-			
 		}
 
 		System.out.println();
@@ -72,12 +72,9 @@ public class TestDFS{
 		if(path == null){
 			System.out.println("Should find path. But didn't");
 		} else{
-			System.out.println(path);
-
-			for(Integer city : path){
-				System.out.println(city);
+			for(Pair pair : path){
+				System.out.println("city: " + pair.getCity());
 			}
-			
 		}
 
 		System.out.println();
@@ -115,9 +112,12 @@ public class TestDFS{
 		cities.add(city3);
 
 		path = dfs.DFS(cities, edges, source, sink);
-
-		for(Integer city : path){
-			System.out.println(city);
+		if(path == null){
+			System.out.println("Should find path. But didn't");
+		} else{
+			for(Pair pair : path){
+				System.out.println("city: " + pair.getCity());
+			}
 		}
 
 		System.out.println();
@@ -169,12 +169,9 @@ public class TestDFS{
 		if(path == null){
 			System.out.println("Shouldn't find path. And didn't");
 		} else{
-			System.out.println(path);
-
-			for(Integer city : path){
-				System.out.println(city);
+			for(Pair pair : path){
+				System.out.println("city: " + pair.getCity());
 			}
-			
 		}
 
 
