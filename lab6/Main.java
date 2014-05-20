@@ -3,15 +3,10 @@ import java.util.*;
 public class Main{
 	private static final int NBR_OF_EDGES = 118;
 
-	public Main(){
-
-	}
-
 	public int calcBottleNeckValue(LinkedList<Pair> path){
 		int b = Integer.MAX_VALUE;
 		for(Pair pair : path){
 			int edgeB = pair.getEdge().getBottleNeckValue(pair.getCity());
-			// int edgeB = pair.getEdge().getCapacity();
 			if(edgeB < b){
 				b = edgeB;
 			}
@@ -52,11 +47,7 @@ public class Main{
 			for(int i=0; i<cityEdge.size(); i++){
 				Edge edge = edges[cityEdge.get(i)];
 				int otherCity = edge.getOtherCity(city);
-				// System.out.println("isMaxed: " + edge.isMaxed(city));
-				// System.out.println("setS contains: " + setS.contains(otherCity));
-				// if(edge.isMaxed(city) && !setS.contains(otherCity)){
 				if(!setS.contains(otherCity)){
-					// System.out.println("do i ever enter here");
 					minCutEdges.add(edge);
 				}
 			}
@@ -76,18 +67,8 @@ public class Main{
 		Main main = new Main();
 
         LinkedList<Pair> path = dfs.dfs(cities, edges, source, sink);
-
-        // int total = 0;
-
 		while(path!=null){
-
-
 			int b = main.calcBottleNeckValue(path);
-            // total += b;
-            // System.out.println("BottleNeckValue: " + b + " total: " + total);
-            // if(total>158){
-            //     System.out.println("hjk");
-            // }
 			edges =	main.updateGraph(b, path, edges);
             path = dfs.dfs(cities, edges, source, sink);
 		}

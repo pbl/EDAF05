@@ -5,10 +5,8 @@ public class Edge{
 	int keepTrackForward;
 	int keepTrackBackword;
 	boolean inf;
-	int flow; 
 	int pos;
 
-	//create an edge with points from city1 to city2 if nothing else is specified
 	public Edge(int city1, int city2, int capacity, int pos){
 		this.city1 = city1;
 		this.city2 = city2;
@@ -16,12 +14,9 @@ public class Edge{
 		this.capacity = capacity;
 		keepTrackForward = capacity;
 		keepTrackBackword = capacity;
-		flow = 0; //uneccessary
 		this.pos = pos;
 	}
 	
-
-	//unnecessary, can use method canUseEdge instead. Gives the same result	
 	public boolean isMaxed(int city){
 		if(inf){
 			return false;
@@ -40,7 +35,6 @@ public class Edge{
 		return city == city1 ? keepTrackForward : keepTrackBackword;
 	}
 
-	//more or less the same as getBottleNeck value
 	public boolean canUseEdge(int city){
 		if(inf){
 			return
@@ -53,7 +47,6 @@ public class Edge{
 		return city == city1 ? city2 : city1;
 	}
 	
-	//is this method used???
 	public int getCapacity(){
 		if(inf){
 			return Integer.MAX_VALUE;
@@ -62,7 +55,6 @@ public class Edge{
 	}
 
 	public void increase(int value, int city){
-		//wht happens with flow??
 		if(city == city1){
 			keepTrackForward -= value;
 			keepTrackBackword += value;
@@ -72,7 +64,6 @@ public class Edge{
 		}
 	}
 
-	//are these two methods used??
 	public int getCity1(){
 		return city1;
 	}
@@ -80,28 +71,4 @@ public class Edge{
 	public int getCity2(){
 		return city2;
 	}
-
-	// public boolean isInf(){
-	// 	return inf;
-	// }
-	
-
-	// public void decrease(int value){
-	// 	keepTrackForward += value;
-	// 	keepTrackBackword -= value;
-	// }
-
-	// public int getKeepTrackForward(){
-	// 	return keepTrackForward;
-	// }
-
-	// public int getKeepTrackBackward(){
-	// 	return keepTrackBackword;
-	// }
-
-	// public void getStatus(){
-	// 	System.out.println();
-	// }
-
-
 }

@@ -5,13 +5,12 @@ public class Dfs {
   private Edge[] edges;
   private ArrayList<ArrayList<Integer>> vertices;
   private HashSet<Integer> tree;
+  private State[] vertexState;
  
   enum State{
       Visited, Not_Visited;
   }
-  
 
-  //the last element is added with a null edge
   public LinkedList<Pair> dfs(ArrayList<ArrayList<Integer>> vertices, Edge[] edges, int source, int sink){
     tree = new HashSet<Integer>();
     LinkedList<Pair> path = new LinkedList<Pair>();
@@ -20,15 +19,15 @@ public class Dfs {
     SINK = sink;
   
     NBR_OF_VERTICES = vertices.size();
-    State vertexState[] = new State[NBR_OF_VERTICES];
+    vertexState = new State[NBR_OF_VERTICES];
     for (int i = 0; i < NBR_OF_VERTICES; i++){
       vertexState[i] = State.Not_Visited;
     }
-      path.add(new Pair(Integer.MAX_VALUE, null)); //fejk the first check, blajigt...
-        return runDfs(source, vertexState, path);
+      path.add(new Pair(Integer.MAX_VALUE, null));
+        return runDfs(source, path);
   }
 
-  public LinkedList<Pair> runDfs(int city, State[] vertexState, LinkedList<Pair> path){
+  public LinkedList<Pair> runDfs(int city, LinkedList<Pair> path){
     if (city == SINK) {
         return path;
     } else {
@@ -41,19 +40,19 @@ public class Dfs {
       }
 
 
-      Edge edge = findAvaibleEdge(city, vertices.get(city), vertexState);
+      Edge edge = findAvaibleEdge(city, vertices.get(city));
       if(edge!=null){
         path.removeLast();
         path.add(new Pair(city, edge));
-        return runDfs(edge.getOtherCity(city), vertexState, path);
+        return runDfs(edge.getOtherCity(city), path);
       }
       path.removeLast();
 
-      return path.size()==0 ? null : runDfs(path.getLast().getCity(), vertexState, path);
+      return path.size()==0 ? null : runDfs(path.getLast().getCity(), path);
   }
 }
 
-  private Edge findAvaibleEdge(int city, ArrayList<Integer> posToEdges, State[] vertexState){ 
+  private Edge findAvaibleEdge(int city, ArrayList<Integer> posToEdges){ 
     for(int i=0; i<posToEdges.size(); i++) {
       Edge edge = edges[posToEdges.get(i)];
       int otherCity = edge.getOtherCity(city);
