@@ -1,3 +1,0 @@
-From the source vertex, do a depth-first search along edges in the residual network (i.e., non-saturated edges and back edges of edges that have flow), and mark all vertices that can be reached this way. The cut consists of all edges that have one visited and one unvisited endpoint. Clearly, those edges are saturated and thus were not traversed. As you noted, there might be other saturated edges that are not part of the minimum cut.
-
-This means build Set S by looking at which node you can reach from the source node. If you reach node s add it to the set S. Then build a set T which consists of S'. The edges that goes from set S to T consists of the minimum cut.

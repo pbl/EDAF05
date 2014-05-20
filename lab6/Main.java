@@ -77,15 +77,20 @@ public class Main{
 
         LinkedList<Pair> path = dfs.dfs(cities, edges, source, sink);
 
-        int count = 0;
+        // int total = 0;
 
 		while(path!=null){
-            count++;
+
+
 			int b = main.calcBottleNeckValue(path);
+            // total += b;
+            // System.out.println("BottleNeckValue: " + b + " total: " + total);
+            // if(total>158){
+            //     System.out.println("hjk");
+            // }
 			edges =	main.updateGraph(b, path, edges);
             path = dfs.dfs(cities, edges, source, sink);
 		}
-
 		ArrayList<Edge> minCutEdges = main.minCutEdges(dfs.getTree(), cities, edges);
 		main.printResult(minCutEdges);
 

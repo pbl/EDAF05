@@ -1,5 +1,5 @@
 import java.util.*;
-public class Dfs {   
+public class oldDfs {   
       private int NBR_OF_VERTICES;
       private int SINK;
       private Edge[] edges;
