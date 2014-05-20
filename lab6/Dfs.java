@@ -23,48 +23,40 @@ public class Dfs {
     for (int i = 0; i < NBR_OF_VERTICES; i++){
       vertexState[i] = State.Not_Visited;
     }
-      path.add(new Pair(Integer.MAX_VALUE, null));
-        return runDfs(source, path);
-  }
-
-  public LinkedList<Pair> runDfs(int city, LinkedList<Pair> path){
-    if (city == SINK) {
-        return path;
-    } else {
-      vertexState[city] = State.Visited;
-      tree.add(city);
-      if(path.getLast().getCity() == Integer.MAX_VALUE){
-        //do nothing
-      } else if(path.getLast().getCity() != city){
-            path.add(new Pair(city, null));
-      }
-
-
-      Edge edge = findAvaibleEdge(city, vertices.get(city));
-      if(edge!=null){
-        path.removeLast();
-        path.add(new Pair(city, edge));
-        return runDfs(edge.getOtherCity(city), path);
-      }
-      path.removeLast();
-
-      return path.size()==0 ? null : runDfs(path.getLast().getCity(), path);
-  }
-}
-
-  private Edge findAvaibleEdge(int city, ArrayList<Integer> posToEdges){ 
-    for(int i=0; i<posToEdges.size(); i++) {
-      Edge edge = edges[posToEdges.get(i)];
-      int otherCity = edge.getOtherCity(city);
-      if(edge.canUseEdge(city) && cityNotVisited(vertexState, otherCity)) {
-        return edge;
-      }
-    }
-    return null;   
+      path.add(new Pair(source, null));
+      return runDfs(source, path);
   }
 
   public HashSet<Integer> getTree(){
         return tree;
+  }
+
+  private LinkedList<Pair> runDfs(int city, LinkedList<Pair> path){
+    if (city == SINK) {
+        return path;
+    }
+    vertexState[city] = State.Visited;
+    tree.add(city);
+    if(path.getLast().getCity() != city){
+          path.add(new Pair(city, null));
+    }
+
+    Edge edge = findAvailableEdge(city, vertices.get(city));
+    if(edge!=null){
+      path.removeLast();
+      path.add(new Pair(city, edge));
+      return runDfs(edge.getOtherCity(city), path);
+    }
+    path.removeLast();
+    return path.size()==0 ? null : runDfs(path.getLast().getCity(), path);
+}
+
+  private Edge findAvailableEdge(int city, ArrayList<Integer> posToEdges){ 
+    for(int i=0; i<posToEdges.size(); i++) {
+      Edge edge = edges[posToEdges.get(i)];
+      if(edge.canUseEdge(city) && cityNotVisited(vertexState, edge.getOtherCity(city))) return edge;
+    }
+    return null;   
   }
 
   private boolean cityNotVisited(State vertexState[], int otherCity){

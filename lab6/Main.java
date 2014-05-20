@@ -74,6 +74,5 @@ public class Main{
 		}
 		ArrayList<Edge> minCutEdges = main.minCutEdges(dfs.getTree(), cities, edges);
 		main.printResult(minCutEdges);
-
 	}
 }
