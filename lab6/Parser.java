@@ -2,11 +2,11 @@ import java.util.*;
 import java.io.*;
 
 public class Parser{
-Edge[] allEdges;				//Map med städer och deras edges, så att när en edge 
+    Edge[] allEdges;				//Map med städer och deras edges, så att när en edge
 								//ändras ändras det globalt och inte bara för en specifik stad
-ArrayList<ArrayList<Integer>> edgesForACity;	 //map med specifik stads kopplade edges
+    ArrayList<ArrayList<Integer>> edgesForACity;	 //map med specifik stads kopplade edges
 					
-					//skapa en vektor med alla städer stor och sedan att varje stad har 
+
 	public Parser(){
 		allEdges = new Edge[119]; //skapar vekto med 119 platser för edges
 		edgesForACity = new ArrayList<ArrayList<Integer>>();
@@ -20,15 +20,16 @@ ArrayList<ArrayList<Integer>> edgesForACity;	 //map med specifik stads kopplade 
 		int edgeKey = 0;
 		try{
 			buf = new BufferedReader(new FileReader(file)); 
-			for(int i = 0; i<176; i++){ // hoppar över allt skit, sista inläsning dock relevant
+			for(int i = 1; i<=176; i++){ // hoppar över allt skit, sista inläsning dock relevant
 				String line = buf.readLine();	
-					if(i>57){
+					if(i>=58){
 						
 						String[] wordLine = line.split(" ");
 						int cityA = Integer.parseInt(wordLine[0]);
 						int cityB =Integer.parseInt(wordLine[1]);
 						int capacity = Integer.parseInt(wordLine[2]);
-						Edge e = new Edge(cityA,cityB, capacity);
+						Edge e = new Edge(cityA,cityB, capacity, edgeKey);
+						// System.out.println("the capacity is: " + capacity);
 						
 						allEdges[edgeKey] = e; //sparar undan den unika edgen på unik nyckel
 						//int edgeKey = Arrays.asList(allEdges).indexOf(e);//finner index för den edge:n

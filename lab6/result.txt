@@ -1,15 +1,25 @@
-Maximala flödet för grafen i rail.txt är 163
+Maximala flÃ¶det fÃ¶r grafen i rail.txt Ã¤r 163
 
-Följande bågar går mellan A och B där c(A,B) är ett min-cut. 
-Formatet är n1 n2 c 
-Bågen går alltså mellan nod nummer n1 och nod nummer n2 och har kapaciteten c.
+FÃ¶ljande bÃ¥gar gÃ¥r mellan A och B dÃ¤r c(A,B) Ã¤r ett min-cut. 
+Formatet Ã¤r n1 n2 c 
+BÃ¥gen gÃ¥r alltsÃ¥ mellan nod nummer n1 och nod nummer n2 och har kapaciteten c.
 
-28 30 19
-29 30 5
-31 41 10
-38 46 30
-39 44 16
-39 45 36
-39 46 17
-40 41 6
-40 44 24
+28 30 19//correct
+29 30 5//missing
+31 41 10//missing
+38 46 30//correct
+39 44 16//correct
+39 45 36//correct
+39 46 17//correct
+40 41 6//missing
+40 44 24//missing
+
+25 29 12 //missing 
+25 32 42 //missing
+25 31 22 //missing
+40 39 20 //missing
+28 30 19 //correct
+38 46 30 //correct
+39 44 16 //correct
+39 45 36 //correct
+39 46 17 //correct
