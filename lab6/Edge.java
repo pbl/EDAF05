@@ -7,8 +7,6 @@ public class Edge{
 	boolean inf;
 	int pos;
 
-	Deque dq = new Deque();
-
 	public Edge(int city1, int city2, int capacity, int pos){
 		this.city1 = city1;
 		this.city2 = city2;
